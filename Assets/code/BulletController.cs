@@ -1,27 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField] GameObject[] bullets;
-    [SerializeField] GameObject bullet;
     [SerializeField] Transform muzzePoint;
-
-    public float BulletPower;
+    [SerializeField] GameObject prefab;
+    private RaycastHit hit;
 
     public void TargetModeOn()
     {
-
-    }
-
-    public void TargetModeOff()
-    {
-
+             Debug.DrawLine(muzzePoint.position, hit.point, Color.white);              
     }
 
     public void Fire()
     {
-    
+        Instantiate(prefab, muzzePoint.position, muzzePoint.rotation);
     }
 }

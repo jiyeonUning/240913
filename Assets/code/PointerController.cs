@@ -16,7 +16,6 @@ public class PointerController : MonoBehaviour
 
     private void Start()
     {
-        bulletController = GetComponent<BulletController>();
         Pointer = transform.position;
     }
 
@@ -25,21 +24,12 @@ public class PointerController : MonoBehaviour
         Rotate();
 
         // 우클릭 시, 조준 모드 실행 (레이캐스트로 점선)
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             bulletController.TargetModeOn();
-
-            // 우클릭 중 좌클릭 버튼 입력 시, 조준 모드 해제
-            if (Input.GetMouseButton(0)) { bulletController.TargetModeOff();  }
-
-            // 우클릭 해제 시, 행성 발사 (지구)
-            if (Input.GetMouseButtonUp(1)) { bulletController.Fire(); }
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // 총알이 서로 부딫혓을 때, 합쳐진다
+        // 우클릭 해제 시, 행성 발사 (지구)
+        if (Input.GetMouseButtonUp(1)) { bulletController.Fire(); }
     }
 
     void Rotate()
@@ -61,7 +51,5 @@ public class PointerController : MonoBehaviour
         // 첫 번째 인자값 angle에서 90을 뺄셈하는 이유 = angle은 x축을 기준으로 각도값을 반환하기 때문에,
         //                                               z축을 기준으로 우측에서만 회전시키려면, angle의 값을 -로 만들어 반전시키고 -180을 해주어 x축의 값을 미리 중간값인 0으로 맞추어줄 필요성이 있기 때문
         transform.rotation = Quaternion.AngleAxis(-angle - 180, Vector3.forward);
-        
-
     }
 }
